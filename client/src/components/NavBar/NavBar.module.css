@@ -1,0 +1,91 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 90px;
+  background: linear-gradient(to bottom, #000000a9, #262626d5);
+  border-bottom: 5px solid #f8f8f8;
+  padding: 0 20px;
+  box-sizing: border-box;
+  font-family: 'VT323', monospace;
+  color: #333; 
+  position: relative;
+}
+
+.logo img{
+  display:flex;
+  width: 150px;
+  height: 70px;   
+}
+
+.divlink {
+  display: inline;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.link {
+  display:inline-block;
+  margin-top: 15px;
+  font-size: 15px;
+  color: #f8f8f8;
+  text-transform: uppercase;
+  margin-right: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  font-weight: normal;
+}
+
+
+.container{
+  display: inline-block;
+  align-items: center;
+  justify-content: space-around;
+  background-color:    #333333;
+  color:azure;
+  padding: 3px;
+  height: 20px;
+  width: 100px;;
+  font: oblique bold 100% cursive;
+  font-size: 12px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 3px;
+  margin-left: 7px;
+  margin-bottom: 2px;
+
+ 
+}
+
+.divLink {
+  display: inline-block;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+ 
+}
+
+.container:hover {
+  color: #e55743;
+
+}
+
+.divLink select {
+  display: block;
+  align-items: center;
+  justify-content: center;
+  background-color:    blanchedalmond;
+  padding: 3px;
+  height: max-content;
+  width: max-content;
+  font: oblique bold 100% cursive;
+  font-size: 12px;
+  text-decoration: none;
+  text-align: center;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: blanchedalmond;
+}

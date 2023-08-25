@@ -1,12 +1,14 @@
 const axios = require('axios');
 const { Recipes, Diets } = require("../db");
-require('dotenv').config();
-const {API_KEY_1, API_KEY_4 } = process.env;
-const number = 100; //máximo de 100 resultados
+// require('dotenv').config();
+// const {API_KEY_1, API_KEY_4,} = process.env;
+const { getApiKey } = require('../helpers/apiKeyRecipes')
+const number = 9; //máximo de 100 resultados
 
 async function getAllRecipesApi() {
   try {
-    const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_1,API_KEY_4}&addRecipeInformation=true&number=${number}`);
+    const apiKey = getApiKey();
+    const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&number=${number}&offset=0`);
     const {results} = apiResponse.data
     
     if(results.length > 0){
@@ -50,13 +52,18 @@ async function getAllRecipes() {
       },
     });
     const apiRecipes = await getAllRecipesApi();
-    return [...apiRecipes, ...dbRecipes]; // spreed operation
+    apiRecipes.sort((a, b) => a.id - b.id);
+    const allRecipes = [...apiRecipes, ...dbRecipes]; // spreed operation
+    console.log(allRecipes)
+    return allRecipes;
   } catch (error) {
     return { error: 'Error al obtener las recetas' };
   }
 };
+
   
 
 module.exports = {
   getAllRecipes,  
 };
+

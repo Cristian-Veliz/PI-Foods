@@ -9,7 +9,7 @@ async function getRecipeByIdHandler(req, res) {
         }
 
         try {
-            const recipesSearch = await getRecipesDbById(id); // Intentar buscar en la base de datos
+            const recipesSearch = await getRecipesDbById(id); // busco en la db
             return res.status(200).json(recipesSearch);
         } catch (dbError) {
             console.error('Error en getRecipesDbById:', dbError.message);
@@ -30,7 +30,7 @@ async function getRecipeByIdHandler(req, res) {
 
     } catch (error) {
         console.error('Error global en getRecipeByIdHandler:', error.message);
-        res.status(500).json({ message: 'Error al obtener la receta por ID' });
+        res.status(500).json({ message: 'Error when searching for recipes by id' });
     }
 }
 

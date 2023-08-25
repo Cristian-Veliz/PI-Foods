@@ -1,16 +1,18 @@
 const axios = require('axios');
-const { Recipes, Diets } = require("../db");
-require('dotenv').config();
-const {API_KEY_2, API_KEY_3} = process.env;
+// const { Recipes, Diets } = require("../db");
+//  require('dotenv').config();
+//  const {API_KEY_2, API_KEY_3} = process.env;
+const { getApiKey } = require('../helpers/apiKeyRecipesName')
 const number = 100; //máximo de 100 resultados
 
 
-async function getRecipesApiName(titleQuery) {
+async function getRecipesApiName(nameQuery) {
     try {
-      if (typeof titleQuery === 'string' && titleQuery.trim()) {
-        const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_2,API_KEY_3}&addRecipeInformation=true&query=${titleQuery.toLowerCase()}&number=${number}`);
+    const apiKey = getApiKey();
+      if (typeof nameQuery === 'string' && nameQuery.trim()) {
+        const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&query=${nameQuery.toLowerCase()}&number=${number}`);
         const filteredRecipes = apiResponse.data.results.filter(recipe => {
-          return recipe.title.toLowerCase().includes(titleQuery.toLowerCase());
+          return recipe.title.toLowerCase().includes(nameQuery.toLowerCase());
         });
   
         if (filteredRecipes.length > 0) {

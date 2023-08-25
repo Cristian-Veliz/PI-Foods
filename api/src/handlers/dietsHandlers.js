@@ -29,7 +29,7 @@ async function getDietDbHandler(req, res) {
     }
   } catch (error) {
     console.error(`Error al buscar o crear la dieta "${dietName}":`, error.message);
-    res.status(500).json({ message: 'Diet not found' });
+    res.status(500).json({ message: 'Error when searching diets' });
   }
 }
 

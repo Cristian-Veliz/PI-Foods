@@ -1,0 +1,43 @@
+.container{
+  display:block;
+  position:relative;
+  justify-content: center;
+  width: 100%;
+  margin-top: 10px; 
+  cursor: pointer;
+
+}
+
+.container input{
+    height: 27px;
+    width: 300px;
+    background-color: whitesmoke;  
+    border-radius: 5px;
+    border: 2px gray solid;
+    margin-bottom: 3px;
+
+
+}
+
+.container button{
+  display: inline-block;
+  align-items: center;
+  justify-content: space-around;
+  background-color: #333333;
+  color:azure;
+  padding: 3px;
+  height: 30px;
+  width: 100px;
+  font: oblique bold 100% cursive;
+  font-size: 15px;
+  text-decoration: none;
+  text-align: center;
+  margin-top: 3px;
+  margin-left: 5px;
+  margin-bottom: 2px;
+  
+}
+.container button:hover {
+  color:  #e55743;
+  cursor: pointer;
+}

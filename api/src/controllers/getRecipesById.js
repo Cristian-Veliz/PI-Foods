@@ -1,13 +1,15 @@
 const axios = require('axios');
 const { Recipes, Diets } = require("../db");
-require('dotenv').config();
-const { API_KEY_4 } = process.env;
+const { getApiKey } = require('../helpers/apikeyRecipesId');
+// require('dotenv').config();
+// const { API_KEY_4 } = process.env;
 
 
 async function getRecipesByid(idSearch) {
     try {
+      const apiKey = getApiKey();
       if (idSearch) {
-        const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/${idSearch}/information?apiKey=${API_KEY_4}&addRecipeInformation=true`);
+        const apiResponse = await axios.get(`https://api.spoonacular.com/recipes/${idSearch}/information?apiKey=${apiKey}&addRecipeInformation=true`);
         const data = apiResponse.data;
   
         if (data) {
