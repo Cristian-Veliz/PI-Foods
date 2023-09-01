@@ -1,0 +1,124 @@
+.container{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+}
+
+.containerInfo{
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: center;
+}
+.form{
+    display: flex;
+    flex-direction: row;
+    /* padding: 15px; */
+}
+
+.containerinputsForm{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    /* padding: 15px; */
+}
+
+.containerButtonImg{
+    width: 500px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.form input, textarea, select {
+    margin-top: 22px;
+}
+
+.select{
+    width: 150px;
+    height: 300px;
+    overflow-y: hidden;
+}
+
+.name{
+    width: 480px;
+    text-align: left;
+}
+
+.summary{
+    resize: vertical;
+    height: 110px;
+    /* width: 400px; */
+}
+
+.steps{
+    text-align: left;
+    resize: vertical;
+    height: 150px;
+}
+
+.health{
+    text-align: left;
+    width: 150px;
+}
+
+.imgUrl{
+    text-align: left;
+    width: 100%;
+}
+
+.img{
+    width: 500px;
+}
+
+.button{
+    width: 100%;
+    font-family: 'Robot';
+    font-size: 21px;
+}
+
+.form span{
+    color: rgb(255, 0, 0);
+    font-size: 12px;
+    text-align: left;
+}
+
+.containerDiets{
+    width: 70vh;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: flex-start;
+    margin-left: 4%;
+    margin-top: 4%;
+}
+
+.containerDiets label{
+    cursor: pointer;
+    margin-bottom: 4%;
+}
+
+.containerDiets label input[type='checkbox']{
+    display: none;
+}
+
+.containerDiets label:hover .circle {
+    filter: grayscale(0%) opacity(100%);
+}
+
+.containerDiets label input[type='checkbox']:checked ~ .circle {
+    filter: grayscale(0%) opacity(100%);
+}
+
+.byDiet{
+    display: flex;
+    align-items: center;
+    /* color: #2a852a7a; */
+}
+
+.circle{
+    filter: grayscale(100%) opacity(50%) ;
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+}
+

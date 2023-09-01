@@ -2,7 +2,8 @@ const axios = require('axios');
 const { Diets } = require("../db");
 const { Op } = require('sequelize');
 require('dotenv').config();
-const { API_KEY_3 } = process.env;
+//const { API_KEY_14 } = process.env;
+const { getApiKey } = require('../helpers/apiKeyRecipes')
 
 const diets = [
   "Gluten Free",
@@ -19,17 +20,18 @@ const diets = [
 
 
 async function getDietsApi() {
+  const apiKey = getApiKey();
   try {
     const dietsWithRecipes = [];
 
     for (const dietName of diets) {
-      const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${API_KEY_3}&diet=${encodeURIComponent(dietName)}`;
+      const url = `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&diet=${encodeURIComponent(dietName)}`;
       const response = await axios.get(url);
 
       const recipes = response.data.results.map(recipe => ({
         id: recipe.id,
         name: recipe.title,
-        image: recipe.image,
+
       }));
 
       dietsWithRecipes.push({

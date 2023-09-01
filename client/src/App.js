@@ -3,10 +3,10 @@ import { Route, Switch, useLocation } from 'react-router-dom';
 import NavBar from './components/NavBar/Navbar.jsx';
 import Landing from './views/Landing/Landing.jsx';
 import Home from './views/Home/Home.jsx';
-import Form from './components/Form/Form.jsx';
+import Create from './views/Create/Create';
 import Detail from './views/Detail/Detail.jsx';
 import About from './views/About/About.jsx';
-import NotFound from './views/NotFound/NotFound.jsx';
+import NotFound from './views/NotFound/NotFound';
 
 
 
@@ -18,10 +18,10 @@ function App() {
       <Switch>
         <Route exact path='/' component={Landing}/>
         <Route exact path='/home' component={Home}/>
-        <Route exact path='/create' component={Form}/>
+        <Route exact path='/create' component={Create}/>
         <Route exact path='/recipes/:id' component={Detail}/>
-        <Route exact path='about' component={About}/>
         <Route exact path='*' component={NotFound}/>
+        <Route exact path='/about' component={About}/>
       </Switch>
       
     </div>

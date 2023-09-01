@@ -3,6 +3,33 @@
     color:#e55743;
     font-size: 20px;
     font-weight: bold;
-    text-align: center; /* Agregado para centrar el texto */
-    flex: 1; /* Ocupa espacio restante */
+    text-align: center; 
+  }
+
+  .orderselect {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
+    padding: 2px;
+  }
+  
+  .select{ 
+    display: inline-flex;
+    margin: 1px;
+    position: relative;
+    align-items: center;
+    justify-content: space-around;
+    background-color: #333333;
+    color:azure;
+    height: 30px;
+    width: 100px;
+    font: oblique bold 100% cursive;
+    font-size: 15px;
+    text-decoration: none;
+    text-align: center;
+    margin-top: 3px;
+    margin-left: 5px;
+    margin-bottom: 2px;
+    
   }

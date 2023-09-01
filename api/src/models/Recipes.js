@@ -5,11 +5,9 @@ module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define('Recipes', {
     id: {
-      type: DataTypes.INTEGER, 
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4, 
       primaryKey: true,
-      allowNull: false,
-      autoIncrement: true,
-
     },
     name: {
       type: DataTypes.STRING,
@@ -18,10 +16,11 @@ module.exports = (sequelize) => {
     image: {
       type: DataTypes.STRING,
       allowNull: false,
+      //defaultValue: 'https://b3fe.short.gy/htGQ8u'
     },
     summary: {
       type: DataTypes.STRING, //resumen
-      //allowNull: false,
+      allowNull: false,
     },
     healthScore: {    // nivel de comida saludable
       type: DataTypes.STRING,
@@ -31,6 +30,10 @@ module.exports = (sequelize) => {
       type: DataTypes.TEXT,
       //allowNull:false
     },
+    createInDb: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: true,  
+    }
 
   },{timestamps:false});
 };

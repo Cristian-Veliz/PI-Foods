@@ -1,0 +1,120 @@
+/* Form.module.css */
+/* Estilos generales del formulario */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 30px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #282424;
+  border-radius: 5px;
+}
+
+/* Estilos del título del formulario */
+h1 {
+  margin-top: 20px;
+  font-family: "Brush Script MT", cursive;
+  color: #e55743;
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos de los campos de entrada y los mensajes de error */
+input,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  background-color: #333;
+  color: rgb(230, 225, 225);
+}
+
+input[type="checkbox"],
+input[type="submit"] {
+  background-color: #00a2ff;
+}
+
+input[type="submit"] {
+  color: rgb(227, 214, 214);
+}
+
+span {
+  display: block;
+  color: red;
+  margin-top: 5px; /* Espacio entre el campo y el mensaje de error */
+}
+
+/* Estilos de la etiqueta de las dietas */
+label {
+  display: inline-block;
+  color: white;
+}
+
+/* Estilos de las dietas seleccionadas */
+.diets {
+  display: flex;
+  flex-wrap: wrap;
+  color: blanchedalmond;
+}
+
+.checkboxContainer {
+  position: relative;
+  display: block;
+  flex-direction: row;
+  margin-top: 15px;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.dietName {
+  color: rgb(235, 202, 202);
+  margin-left: 5px;
+}
+
+.diet {
+  display: flex;
+  align-items: center;
+  background-color: #333;
+  color: rgb(16, 14, 14);
+  padding: 20px;
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+button {
+  margin: 20px;
+  padding: 8px;
+  border: none;
+  background-color: rgb(51, 48, 48);
+  color: #e55743;
+}
+
+/* Estilos para las transiciones al hacer foco o pasar el ratón sobre los elementos */
+input:focus,
+textarea:focus {
+  background-color: #444;
+}
+
+input:hover,
+textarea:hover {
+  transform: scale(1.02);
+}
+
+input[type="submit"]:hover {
+  background-color: #0099ff;
+}
+
+button:hover {
+  cursor: pointer;
+  color: aliceblue;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}

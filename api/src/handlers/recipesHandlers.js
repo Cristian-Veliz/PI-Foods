@@ -5,8 +5,7 @@ async function getRecipesApiHandler(req, res) {
   const nameQuery = req.query.name;
 
   try {
-    let recipes = []; // Inicio como un array vacío para asegurarme que esta definido desde el principio
-
+    let recipes = []; 
     if (nameQuery) {
       recipes = await getRecipesApiName(nameQuery);
       

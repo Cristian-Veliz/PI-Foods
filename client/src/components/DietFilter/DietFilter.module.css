@@ -1,0 +1,47 @@
+.container {
+  margin-top: 50px;
+  height: 211px;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  border-radius: 12px;
+}
+
+@media (max-width: 770px) {
+  .container {
+    width: 100%;
+    flex-direction: row;
+    margin-top: 20px;
+  }
+  .select {
+    margin: 20px;
+  }
+}
+
+.title {
+  font-weight: 800;
+}
+
+.select-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select {
+  background-color: #f1f1f1;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 8px;
+  margin: 10px;
+  font-size: 16px;
+  width: 200px;
+  font-family: "Roboto Slab", serif;
+  font-weight: 500;
+  outline: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align-last: center;
+}

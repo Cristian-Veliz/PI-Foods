@@ -1,9 +1,10 @@
-import { Link } from "react-router-dom";
-import style from "./NavBar.module.css";
-import SearchBar from "../SearchBar/Searchbar";
-import logo from "../../assets/LogoFood.png";
+import { Link } from 'react-router-dom';
+import style from './NavBar.module.css';
+import logo from '../../assets/LogoFood.png';
 
 const NavBar = () => {
+  
+
   return (
     <div className={style.mainContainer}>
       <nav className={style.navbar}>
@@ -19,7 +20,7 @@ const NavBar = () => {
             </Link>
             <div className={style.divLink}>
               <Link className={style.container} to="/create">
-              Create
+                Create
               </Link>
             </div>
             <div className={style.divLink}>
@@ -27,9 +28,8 @@ const NavBar = () => {
                 Logout
               </Link>
             </div>
-            <div className={style.divLink}></div>
           </div>
-          <SearchBar />
+        
         </div>
       </nav>
     </div>
@@ -37,3 +37,4 @@ const NavBar = () => {
 };
 
 export default NavBar;
+

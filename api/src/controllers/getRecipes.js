@@ -3,7 +3,7 @@ const { Recipes, Diets } = require("../db");
 // require('dotenv').config();
 // const {API_KEY_1, API_KEY_4,} = process.env;
 const { getApiKey } = require('../helpers/apiKeyRecipes')
-const number = 9; //máximo de 100 resultados
+const number = 102; //máximo de 100 resultados
 
 async function getAllRecipesApi() {
   try {

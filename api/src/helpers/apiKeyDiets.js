@@ -1,20 +1,14 @@
 require("dotenv").config();
 
   const apiKeys = [
-    process.env.API_KEY_16,
-    process.env.API_KEY_17,
-    process.env.API_KEY_18,
-    process.env.API_KEY_15,
-    process.env.API_KEY_19,
-    process.env.API_KEY_7,
-    process.env.API_KEY_6,
-    process.env.API_KEY_4,
-    process.env.API_KEY_1,
-    process.env.API_KEY_5,
-    process.env.API_KEY_0,
-    //process.env.API_KEY_24,
-
-
+    process.env.API_KEY_20,
+    process.env.API_KEY_22,
+    process.env.API_KEY_13,
+    process.env.API_KEY_10,
+    process.env.API_KEY_12,
+    process.env.API_KEY_21,
+    //process.env.API_KEY_23,
+    
   ];
 
   let apiKeyIndex = 0;
