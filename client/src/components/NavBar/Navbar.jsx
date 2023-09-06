@@ -9,7 +9,7 @@ const NavBar = () => {
     <div className={style.mainContainer}>
       <nav className={style.navbar}>
         <div className={style.logo}>
-          <Link to="/">
+          <Link to="/about">
             <img src={logo} alt="logo" />
           </Link>
         </div>
@@ -21,6 +21,11 @@ const NavBar = () => {
             <div className={style.divLink}>
               <Link className={style.container} to="/create">
                 Create
+              </Link>
+            </div>
+            <div className={style.divLink}>
+              <Link className={style.container} to="/about">
+                About
               </Link>
             </div>
             <div className={style.divLink}>

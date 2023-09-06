@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { orderByHealthScore } from '../../redux/actions/actions';
+import style from './Order.module.css';
 
 const OrderByScore = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ const OrderByScore = () => {
 
   return (
     <div>
-      <label>Sort by HealthScore: </label>
-      <select onChange={(e) => handleChange(e.target.value)} value={selectedOption}>
-        <option value="">Sort by HealthScore</option>
+      <label>Sort HealthScore: </label>
+      <select className={style.selectStyle} onChange={(e) => handleChange(e.target.value)} value={selectedOption}>
+        <option value="">Select</option>
         <option value="asc">Ascending</option>
         <option value="desc">Descending</option>
       </select>

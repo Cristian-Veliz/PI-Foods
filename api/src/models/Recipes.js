@@ -19,7 +19,7 @@ module.exports = (sequelize) => {
       //defaultValue: 'https://b3fe.short.gy/htGQ8u'
     },
     summary: {
-      type: DataTypes.STRING, //resumen
+      type: DataTypes.TEXT, //resumen
       allowNull: false,
     },
     healthScore: {    // nivel de comida saludable

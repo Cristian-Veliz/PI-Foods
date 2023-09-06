@@ -1,117 +1,256 @@
 import React, { useEffect, useState } from 'react';
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllDiets } from "../../redux/actions/actions";
+import axios from 'axios';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllDiets } from '../../redux/actions/actions';
 import { useHistory } from 'react-router-dom';
+import style from './Form.module.css';
 
-
-import style from "./Form.module.css";
-
-export default function CreateRecipe() {
+const CreateRecipe = () => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const diets = useSelector((state) => state.allDiets);
+
+  const [form, setForm] = useState({
+    name: '',
+    image: '',
+    summary: '',
+    healthScore: '',
+    steps: '',
+    diets: [],
+  });
+
+  const [errors, setErrors] = useState({
+    name: '',
+    image: '',
+    summary: '',
+    healthScore: '',
+    steps: '',
+    diets: '',
+  });
+
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     dispatch(getAllDiets());
   }, [dispatch]);
 
-  const diets = useSelector((state) => state.allDiets);
+  useEffect(() => {
+    validateForm(form);
+  }, [form]);
 
-  const [form, setForm] = useState({
-    name: "",
-    image: "",
-    summary: "",
-    healthScore: "",
-    steps: "",
-    diets: [],
-  });
-
-  const [errors, setErrors] = useState({
-    name: "",
-    summary: "",
-    healthScore: "",
-    steps: "",
-    image: "",
-    diets: "",
-  });
-
-  const changeHandler = (event) => {
+  const handleChange = (event) => {
     const { name, value } = event.target;
-    setForm((form) => ({
-      ...form,
+    setForm((prevForm) => ({
+      ...prevForm,
       [name]: value,
     }));
-    setErrors((errors) => ({
-      ...errors,
-      [name]: "", // Clear the error message when the input changes
+
+    validateField(name, value); // Validar en tiempo real al cambiar el valor
+  };
+
+  const handleToggleDiet = (value) => {
+    setForm((prevForm) => ({
+      ...prevForm,
+      diets: prevForm.diets.includes(value)
+        ? prevForm.diets.filter((diet) => diet !== value)
+        : [...prevForm.diets, value],
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      diets: '',
     }));
   };
 
-  const changeHandlerDiets = (event) => {
-    const value = event.target.value;
-    if (!form.diets.includes(value)) {
-      setForm((form) => ({
-        ...form,
-        diets: [...form.diets, value],
-      }));
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    const validationErrors = validateForm(form);
+
+    if (Object.values(validationErrors).every((error) => !error)) {
+      try {
+        await axios.post('http://localhost:3001/recipes', form);
+        alert('Recipe Created!');
+        history.push('/home');
+      } catch (error) {
+        alert('Failed to create Recipe');
+      }
     } else {
-      const updatedDiets = form.diets.filter((diet) => diet !== value);
-      setForm((form) => ({
-        ...form,
-        diets: updatedDiets,
-      }));
+      setErrors(validationErrors);
     }
-    setErrors((errors) => ({
-      ...errors,
-      diets: "", // Clear the error message when the diets selection changes
-    }));
   };
 
   const validateForm = (formData) => {
     const errors = {
-      name: formData.name.length < 1 ? "Name is required" : /^[a-zA-Z\s]*$/.test(formData.name) ? "" : "Name can only contain letters and spaces",
-      summary: formData.summary.length < 1 ? "Summary is required" : "",
-      healthScore:
-        formData.healthScore.length < 1 || isNaN(formData.healthScore)
-          ? "Health Score must be a number"
-          : formData.healthScore < 0 || formData.healthScore > 100
-          ? "Health Score must be between 0 and 100"
-          : "",
-      steps: formData.steps.length < 1 ? "Steps are required" : "",
-      image:
-        formData.image.length < 1 ||
-        !/^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i.test(formData.image)
-          ? "Valid image URL is required"
-          : "",
-      diets:
-        formData.diets.length < 1 ? "At least one diet must be selected" : "",
+      name: '',
+      image: '',
+      summary: '',
+      healthScore: '',
+      steps: '',
+      diets: '',
     };
+  
+    // Validar el campo "name" si se ha ingresado algún valor
+    if (formData.name.trim() !== '') {
+      errors.name = validateName(formData.name);
+    }
+  
+    // Validar el campo "image" si se ha ingresado algún valor
+    if (formData.image.trim() !== '') {
+      errors.image = validateImage(formData.image);
+    }
+  
+    // Validar el campo "summary" si se ha ingresado algún valor
+    if (formData.summary.trim() !== '') {
+      errors.summary = validateSummary(formData.summary);
+    }
+  
+    // Validar el campo "healthScore" si se ha ingresado algún valor
+    if (formData.healthScore.trim() !== '') {
+      errors.healthScore = validateHealthScore(formData.healthScore);
+    }
+  
+    // Validar el campo "steps" si se ha ingresado algún valor
+    if (formData.steps.trim() !== '') {
+      errors.steps = validateSteps(formData.steps);
+    }
+  
+    // Validar el campo "diets" si se ha ingresado algún valor
+    if (formData.diets.length > 0) {
+      errors.diets = validateDiets(formData.diets);
+    }
+  
+    setErrors(errors);
+  
+    const isValid = Object.values(errors).every((error) => !error);
+    setIsFormValid(isValid);
+  
     return errors;
   };
+  
 
-  const submitHandler = async (event) => {
-    event.preventDefault();
-
-    // Validate the form before submitting
-    const validationErrors = validateForm(form);
-    if (Object.keys(validationErrors).some((key) => validationErrors[key])) {
-      setErrors(validationErrors);
-    } else {
-      try {
-        await axios.post("http://localhost:3001/recipes", form);
-        alert('Recipe Created!')
-      history.push("/home");
-      } catch (error) {
-        alert("Failed to create Recipe");
-      }
+  const validateField = (fieldName, value) => {
+    switch (fieldName) {
+      case 'name':
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          name: validateName(value),
+        }));
+        break;
+      case 'image':
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          image: validateImage(value),
+        }));
+        break;
+      case 'summary':
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          summary: validateSummary(value),
+        }));
+        break;
+      case 'healthScore':
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          healthScore: validateHealthScore(value),
+        }));
+        break;
+      case 'steps':
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          steps: validateSteps(value),
+        }));
+        break;
+      case 'diets':
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          diets: validateDiets(value),
+        }));
+        break;
+      default:
+        break;
     }
   };
+
+  const validateName = (value) => {
+    if (value.length > 25) {
+      return 'Name cannot exceed 25 characters';
+    } else if (/\d/.test(value)) {
+      return 'The name cannot contain numbers';
+    }
+  
+    // Usar una expresión regular para verificar si contiene caracteres especiales
+    const specialCharactersRegex = /[&%$#!*\/@+\-=]/;
+    if (specialCharactersRegex.test(value)) {
+      return 'Special characters are not allowed in names';
+    }
+  
+    return '';
+  };
+  
+
+  const validateImage = (value) => {
+    const regex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*\.(jpg|png|gif)$/i;
+    if (!regex.test(value)) {
+      return 'Valid image URL is required (JPG, PNG, GIF)';
+    }
+    return '';
+  };
+
+  const validateSummary = (value) => {
+    if (value.length < 30) {
+      return 'Summary must be at least 30 characters';
+    }
+    if (value.length > 2300) {
+      return 'Summary cannot exceed 2300 characters';
+    }
+    return '';
+  };
+
+  const validateHealthScore = (value) => {
+    if (isNaN(value)) {
+      return 'Health Score must be a number';
+    }
+    if (value < 0 || value > 100) {
+      return 'Health Score must be between 0 and 100';
+    }
+    return '';
+  };
+
+  const validateSteps = (value) => {
+    if (value.length < 50) {
+      return 'Steps must be at least 50 characters';
+    }
+    if (value.length > 4000) {
+      return 'Steps cannot exceed 4000 characters';
+    }
+    return '';
+  };
+
+  const validateDiets = (value) => {
+    if (value.length === 0) {
+      return 'At least one diet must be selected';
+    }
+    return '';
+  };
+
+  const areAllRequiredFieldsEmpty = (formData) => {
+    return (
+      formData.name.trim() === '' &&
+      formData.image.trim() === '' &&
+      formData.summary.trim() === '' &&
+      formData.healthScore.trim() === '' &&
+      formData.steps.trim() === '' &&
+      formData.diets.length === 0 
+    );
+  };
+  
 
   return (
     <div className={style.bigDiv}>
       <div className={style.container}>
-        <form onSubmit={submitHandler}>
-          <h1> 👨‍🍳 Create Recipe Favorite 👨‍🍳</h1>
+        <form onSubmit={handleSubmit}>
+          <h1>👨‍🍳 Create Recipe Favorite 👨‍🍳</h1>
           <div>
             <label htmlFor="name">Name:</label>
             <input
@@ -119,11 +258,13 @@ export default function CreateRecipe() {
               id="name"
               name="name"
               value={form.name}
-              onChange={changeHandler}
+              onChange={handleChange}
+              onBlur={() => validateField('name', form.name)}
+             
             />
             {errors.name && <p className={style.error}>{errors.name}</p>}
           </div>
-  
+
           <div>
             <label htmlFor="image">Image:</label>
             <input
@@ -131,22 +272,26 @@ export default function CreateRecipe() {
               id="image"
               name="image"
               value={form.image}
-              onChange={changeHandler}
+              onChange={handleChange}
+              onBlur={() => validateField('image', form.image)}
+             
             />
             {errors.image && <p className={style.error}>{errors.image}</p>}
           </div>
-  
+
           <div>
             <label htmlFor="summary">Summary:</label>
             <textarea
               id="summary"
               name="summary"
               value={form.summary}
-              onChange={changeHandler}
+              onChange={handleChange}
+              onBlur={() => validateField('summary', form.summary)}
+            
             ></textarea>
             {errors.summary && <p className={style.error}>{errors.summary}</p>}
           </div>
-  
+
           <div>
             <label htmlFor="healthScore">Health Score:</label>
             <input
@@ -154,22 +299,28 @@ export default function CreateRecipe() {
               id="healthScore"
               name="healthScore"
               value={form.healthScore}
-              onChange={changeHandler}
+              onChange={handleChange}
+              onBlur={() => validateField('healthScore', form.healthScore)}
+            
             />
-            {errors.healthScore && <p className={style.error}>{errors.healthScore}</p>}
+            {errors.healthScore && (
+              <p className={style.error}>{errors.healthScore}</p>
+            )}
           </div>
-  
+
           <div>
             <label htmlFor="steps">Steps:</label>
             <textarea
               id="steps"
               name="steps"
               value={form.steps}
-              onChange={changeHandler}
+              onChange={handleChange}
+              onBlur={() => validateField('steps', form.steps)}
+           
             ></textarea>
             {errors.steps && <p className={style.error}>{errors.steps}</p>}
           </div>
-  
+
           <div>
             <label htmlFor="diets">Diets:</label>
             {diets.map((diet, index) => (
@@ -179,18 +330,21 @@ export default function CreateRecipe() {
                   id={`diet-${diet.id}`}
                   name={`diet-${diet.id}`}
                   value={diet.name}
-                  onChange={changeHandlerDiets}
+                  onChange={() => handleToggleDiet(diet.name)}
                 />
                 <label htmlFor={`diet-${diet.id}`}>{diet.name}</label>
               </span>
             ))}
             {errors.diets && <p className={style.error}>{errors.diets}</p>}
           </div>
-  
-          <button type="submit">Create Recipe</button>
+          <button type="submit" disabled={areAllRequiredFieldsEmpty(form) || !isFormValid}>
+          Create Recipe
+          </button>
+
         </form>
       </div>
     </div>
   );
- }
- 
+};
+
+export default CreateRecipe;

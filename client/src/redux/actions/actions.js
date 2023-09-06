@@ -3,7 +3,9 @@ import { GET_ALL_RECIPES,
   GET_ALL_DIETS,
   GET_RECIPES_BY_NAME,
   GET_RECIPES_BY_ID,
+  GET_DB_RECIPES_BY_ID,
   CLEAR_DETAIL,
+  CLEAR_DB_DETAIL,
   RECIPES_SORT_NAME,
   ORDER_SCORE,
   DIET_FILTER,
@@ -50,6 +52,17 @@ export function getRecipesById(id) {
   }
 }
 
+export function getDbRecipesById(id) {
+	return async (dispatch) => {
+    try {
+      const {data} = await axios.get(`http://localhost:3001/recipes/db/${id}`)
+      dispatch({ type: GET_DB_RECIPES_BY_ID, payload: data });
+    } catch (error) {
+      console.error("Error al intentar mostrar las recetas por id de la db", error.message);
+    }
+  }
+}
+
 export const getAllDiets = () => {
   return async (dispatch) => {
     try {
@@ -76,10 +89,12 @@ export function postRecipe(data) {
 }
 
 
-
-
 export const clearDetail = () => {
   return { type: CLEAR_DETAIL };
+};
+
+export const clearDbDetail = () => {
+  return { type: CLEAR_DB_DETAIL };
 };
 
 export function filterByDiet(diet) {

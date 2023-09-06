@@ -1,7 +1,7 @@
 const axios = require('axios');
  const { Recipes, Diets } = require("../db");
 //  require('dotenv').config();
-//  const {API_KEY_2, API_KEY_3} = process.env;
+//const {API_KEY_016} = process.env;
 const { getApiKey } = require('../helpers/apiKeyRecipesName')
 const number = 100; //máximo de 100 resultados
 

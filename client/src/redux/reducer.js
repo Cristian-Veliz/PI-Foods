@@ -3,7 +3,9 @@ import {
   GET_ALL_DIETS,
   GET_RECIPES_BY_NAME,
   GET_RECIPES_BY_ID,
+  GET_DB_RECIPES_BY_ID,
   CLEAR_DETAIL,
+  CLEAR_DB_DETAIL,
   GET_RECIPES_FROM_DB,
   RECIPES_SORT_NAME,
   ORDER_SCORE,
@@ -18,10 +20,13 @@ const initialState = {
   recipesByName: [],
   temporal: [], 
   selectRecipes: null,
+  selectDbRecipes: null,
   numPage: 1,
 };
 
 export default function reducer(state = initialState, { type, payload }) {
+  console.log("Reducer type:", type); // Agregado para depuración
+  console.log("Reducer payload:", payload); // Agregado para depuración
   switch (type) {
     case GET_ALL_RECIPES:
       return {
@@ -46,6 +51,12 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         selectRecipes: payload,
       };
+      case GET_DB_RECIPES_BY_ID:
+        return {
+          ...state,
+          selectDbRecipes: payload,
+        };
+
       case GET_RECIPES_FROM_DB:
         const searchRecipe = payload.toLowerCase();
         const dbRecipes = state.temporal.filter(recipe =>
@@ -67,6 +78,11 @@ export default function reducer(state = initialState, { type, payload }) {
         ...state,
         selectRecipes: null,
       };
+    case CLEAR_DB_DETAIL:
+      return {
+          ...state,
+          selectDbRecipes: null,
+       };
 
     case RECIPES_SORT_NAME:
       const sortedRecipesByName = [...state.allRecipes];

@@ -18,14 +18,25 @@
   border-top-right-radius: 8px;
 }
 
+
 .image {
-  max-height: 200px;
-  width: auto; 
+  max-height: 250px;
+  width: auto;
+  border-radius: 10px;
+  box-shadow: 7px 7px 5px 0px rgba(0, 0, 0, 0.7);
+  transition: transform 0.2s ease-in-out;
+}
+
+
+.image:hover {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .name {
   text-align: center;
   padding: 10px;
+  font-family: Calibri;
 }
 
 .name h5 {

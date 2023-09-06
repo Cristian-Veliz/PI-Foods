@@ -10,7 +10,7 @@ const Landing = () => {
       <img src={image} alt="LandingImg" className={style.image} />
       <div className={style.content}>
         <h1 style={{ color: "#e55743" }}>WELCOME TO THE FOOD APP</h1>
-        <h2 >Explore a world of exquisite flavors and culinary creations that will delight your senses.</h2>
+        <h2 >Explore a world of exquisite flavors that will delight your senses</h2>
         <Link to='/home'>
           <button className={style.button}>Explore Recipes</button>
         </Link>

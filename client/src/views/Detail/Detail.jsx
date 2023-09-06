@@ -32,13 +32,13 @@ const Detail = () => {
           <h3>Summary: {recipes.summary}</h3>
           <h3>HealthScore 🥗: {recipes.healthScore}</h3>
           <h3>Steps: {recipes.steps}</h3>
-          {recipes.diets.length === 0 ? (
+          { recipes.diets && recipes.diets.length === 0 ? (
             <h3>Diet Types: No type of diet was found. 🤔</h3>
           ) : (
             <div>
               <h3>Diet Types:</h3>
               <ul className={style.dietTypes}>
-                {recipes.diets.map((diet, index) => (
+                { recipes.diets && recipes.diets.map((diet, index) => (
                   <li key={index}>{diet}</li>
                 ))}
               </ul>

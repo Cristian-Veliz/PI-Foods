@@ -2,7 +2,7 @@ const axios = require('axios');
 const { Diets } = require("../db");
 const { Op } = require('sequelize');
 require('dotenv').config();
-//const { API_KEY_14 } = process.env;
+//const { API_KEY_010 } = process.env;
 const { getApiKey } = require('../helpers/apiKeyRecipes')
 
 const diets = [
@@ -29,14 +29,14 @@ async function getDietsApi() {
       const response = await axios.get(url);
 
       const recipes = response.data.results.map(recipe => ({
-        id: recipe.id,
+        
         name: recipe.title,
-
+       
       }));
 
       dietsWithRecipes.push({
         name: dietName,
-        recipes: recipes,
+       
       });
     }
 

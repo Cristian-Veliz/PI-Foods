@@ -45,3 +45,7 @@
   color:  #e55743;
   cursor: pointer;
 }
+.container input:focus {
+  background-color: whitesmoke;
+  color:black
+}
